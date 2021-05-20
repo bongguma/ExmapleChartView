@@ -79,10 +79,7 @@ class ChartViewState extends State<ChartView> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Column(
-          children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: double.infinity),
-              child: Row(
+          children: [Row(
                 children: [
                   Flexible(
                     child: ListTile(
@@ -116,7 +113,6 @@ class ChartViewState extends State<ChartView> {
                   ),
                 ],
               ),
-            ),
             Column(
               children: <Widget>[
                 Container(
