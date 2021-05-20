@@ -25,9 +25,9 @@ class BubbleChartViewState extends State<BubbleChart> {
     final List<ChartData> chartData = [
       ChartData(now, 35, 0.32),
       ChartData(now.add(new Duration(days: -1)), 38, 0.21),
-      ChartData(null, 34, 0.38),
-      ChartData(null, 52, 0.29),
-      ChartData(null, 40, 0.34)
+      ChartData(now.add(new Duration(days: -2)), 34, 0.38),
+      ChartData(now.add(new Duration(days: -3)), 52, 0.29),
+      ChartData(now.add(new Duration(days: -4)), 40, 0.34)
     ];
 
     return Scaffold(

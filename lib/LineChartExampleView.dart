@@ -203,7 +203,7 @@ class ChartViewState extends State<ChartView> {
         LineChartBarData(
           spots: spots.isEmpty ? [FlSpot(0, 0)] : spots,
           isCurved: true,
-          colors: [Colors.blue[50]],
+          colors: [Colors.red[50]],
           barWidth: 1,
           isStrokeCapRound: true,
           dotData: FlDotData(
