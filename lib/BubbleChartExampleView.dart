@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sometrend_charttest/Data/ChartData.dart';
-import 'package:sometrend_charttest/Data/ChartDataList.dart';
+import 'package:sometrend_charttest/Data/ChartDataList.d\art';
 import 'package:sometrend_charttest/Data/Type/SearchChartDateType.dart';
 import 'package:sometrend_charttest/Lib/DateLib.dart';
 
