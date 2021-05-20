@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
+import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
 
 void main() {
   runApp(MyApp());
@@ -113,6 +114,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => BubbleChartExampleView()));
+              },
+            ),
+            ElevatedButton(
+              child: Text('Syncfusion 차트 예제'),
+              onPressed: () {
+                // chart 라이브러리 사용해서 예제 진행-
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SyncfusionBubbleChartView()));
               },
             ),
             Text(
