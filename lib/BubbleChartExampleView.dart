@@ -109,11 +109,6 @@ class ChartViewState extends State<ChartView> {
                                 showDialog(
                                   barrierColor: Colors.white10,
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return Container(
-                                        child: Text("gggggggggg")
-                                    );
-                                  },
                                 );
                                 // AlertDialog(title: Text("Sample Alert Dialog"));
                               },
