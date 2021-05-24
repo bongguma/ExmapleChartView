@@ -35,11 +35,6 @@ class ChartViewState extends State<ChartView> {
   String _startDate = '', _endDate = '';
   int _totalNegativePercent = 0, _totalNeutralPercent = 0, _totalPositivePercent = 0;
 
-  List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-  ];
-
   bool showAvg = false;
 
   @override
@@ -87,36 +82,112 @@ class ChartViewState extends State<ChartView> {
   Widget build(BuildContext context) {
     if(rankDataList.isNotEmpty) {
       return Scaffold(
-        body: BubbleChartLayout(
-          root: BubbleNode.node(
-            padding: 0,
-            children: List.generate(rankDataList.length, (index) {
-              if (rankDataList[index].polarity == "negative") {
-                return BubbleNode.leaf(
-                    value: rankDataList[index].frequency.toInt(),
-                    options: BubbleOptions(
-                        child: Text(rankDataList[index].label),
-                        color: Colors.red
-                    )
-                );
-              } else if (rankDataList[index].polarity == "neutral") {
-                return BubbleNode.leaf(
-                    value: rankDataList[index].frequency.toInt(),
-                    options: BubbleOptions(
-                        child: Text(rankDataList[index].label),
-                        color: Colors.greenAccent
-                    )
-                );
-              } else if (rankDataList[index].polarity == "positive") {
-                return BubbleNode.leaf(
-                    value: rankDataList[index].frequency.toInt(),
-                    options: BubbleOptions(
-                        child: Text(rankDataList[index].label),
-                        color: Colors.blue
-                    )
-                );
-              }
-            }),
+        body: Container(
+          margin: EdgeInsets.only(top : 20, bottom : 20),
+          child: Column(
+            children: [
+              Text('비트코인 감성 연관어 TOP 10',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+              Flexible(
+                child: BubbleChartLayout(
+                  root: BubbleNode.node(
+                    padding: 0,
+                    children: List.generate(rankDataList.length, (index) {
+                      if (rankDataList[index].polarity == "negative") {
+                        return  BubbleNode.leaf(
+                            value: rankDataList[index].frequency.toInt(),
+                            options: BubbleOptions(
+                              child: GestureDetector(
+                                child:
+                                Text(rankDataList[index].label,
+                                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
+                              ),
+                              color: Colors.red[300],
+                              border: Border.all(color: Colors.red,
+                                  width: 2),
+                              onTap: () {
+                                showDialog(
+                                  barrierColor: Colors.white10,
+                                  context: context,
+                                );
+                                // AlertDialog(title: Text("Sample Alert Dialog"));
+                              },
+                            )
+                        );
+                      } else if (rankDataList[index].polarity == "neutral") {
+                        return BubbleNode.leaf(
+                            value: rankDataList[index].frequency.toInt(),
+                            options: BubbleOptions(
+                                child: Text(rankDataList[index].label,
+                                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
+                                color: Colors.lightGreen[400],
+                                border: Border.all(color: Colors.lightGreen,
+                                    width: 2)
+                            )
+                        );
+                      } else if (rankDataList[index].polarity == "positive") {
+                        return BubbleNode.leaf(
+                            value: rankDataList[index].frequency.toInt(),
+                            options: BubbleOptions(
+                                child: Text(rankDataList[index].label,
+                                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
+                                color: Colors.blue[500],
+                                border: Border.all(color: Colors.blue,
+                                    width: 2)
+                            )
+                        );
+                      }
+                    }),
+                  ),
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Container(
+                    margin: EdgeInsets.only(right: 8.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("부정  " + _totalNegativePercent.toString() + "%"),
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.red,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 8.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("중립  " + _totalNeutralPercent.toString() + "%"),
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.lightGreen,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 8.0),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("긍정  " + _totalPositivePercent.toString() + "%"),
+                    ),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.blue,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       );
