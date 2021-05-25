@@ -59,6 +59,7 @@ class ChartViewState extends State<ChartView> {
           rankDataList = bubbleChart.ranks;
           int _totalNegativeFrquency = 0, _totalNeutralFrquency = 0, _totalPositiveFrquency = 0, _totalFrequency = 0;
           bubbleChart.ranks.forEach((rankData) {
+            print('rankData.frequency :: ' + rankData.frequency.toString());
             _totalFrequency += rankData.frequency;
             // 부정일 때
             if(rankData.polarity == "negative"){

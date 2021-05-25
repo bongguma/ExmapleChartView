@@ -23,21 +23,26 @@ class BubbleChartViewState extends State<BubbleChart> {
   @override
   Widget build(BuildContext context) {
     final List<ChartData> chartData = [
-      ChartData(now, 35, 0.32),
-      ChartData(now.add(new Duration(days: -1)), 38, 0.21),
-      ChartData(now.add(new Duration(days: -2)), 34, 0.38),
-      ChartData(now.add(new Duration(days: -3)), 52, 0.29),
-      ChartData(now.add(new Duration(days: -4)), 40, 0.34)
+      ChartData(0, 38, 667),
+      ChartData(1, 34, 274),
+      ChartData(2, 52, 272),
+      ChartData(3, 40, 240),
+      ChartData(4, 34, 235),
+      ChartData(5, 52, 235),
+      ChartData(6, 40, 227),
+      ChartData(7, 40, 180),
+      ChartData(8, 34, 175),
+      ChartData(9, 52, 150)
     ];
 
     return Scaffold(
         body: Center(
             child: Container(
                 child: SfCartesianChart(
-                    primaryXAxis: DateTimeAxis(),
+                    primaryXAxis: NumericAxis(),
                     series: <ChartSeries>[
                       // Renders bubble chart
-                      BubbleSeries<ChartData, DateTime>(
+                      BubbleSeries<ChartData, int>(
                           dataSource: chartData,
                           sizeValueMapper: (ChartData sales, _) => sales.size,
                           xValueMapper: (ChartData sales, _) => sales.x,
@@ -54,7 +59,7 @@ class BubbleChartViewState extends State<BubbleChart> {
 
 class ChartData {
   ChartData(this.x, this.y, this.size);
-  final DateTime x;
+  final int x;
   final double y;
   final double size;
 }
