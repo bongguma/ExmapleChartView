@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
+import 'package:sometrend_charttest/RadarChartView.dart';
 import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
 
 void main() {
@@ -50,6 +51,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  Stream<int> countStream(int to) async* {
+    for(int i = 1; i <= to; i++){
+      print('counsStream : $i');
+      yield i;
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    // Stream 예제
+    // var stream = countStream(10);
+    // stream.listen((int stream) {
+    //   print('stream :: ' + stream.toString());
+    // });
+
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -112,6 +131,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => SyncfusionBubbleChartView()));
+              },
+            ),
+            ElevatedButton(
+              child: Text('radar 차트 예제'),
+              onPressed: () {
+                // chart 라이브러리 사용해서 예제 진행-
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RadarChartView()));
               },
             ),
           ],

@@ -8,6 +8,7 @@ class ChartDataList {
 
   factory ChartDataList.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> itemJson = json['item'];
+    print('itemJson :: ' + itemJson.toString());
     List<dynamic> rowDataJson = itemJson['rows'];
     List<ChartData> chartDataList = [];
     ChartData chartData;

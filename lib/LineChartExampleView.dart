@@ -235,6 +235,7 @@ Future<ChartDataList> fetchChartDataList(
     // If the server did return a 200 OK response,
     // then parse the JSON.
     return ChartDataList.fromJson(json.decode(response.body));
+    // return ChartDataList.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load ChartData');
   }
