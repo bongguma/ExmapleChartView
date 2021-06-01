@@ -25,7 +25,7 @@ class ChartView extends StatefulWidget {
   ChartViewState createState() => ChartViewState();
 }
 
-class ChartViewState extends State<ChartView> {
+class ChartViewState extends State<ChartView> {   // 혼자 화면을 출력할 수 없어서 state 클래스를 상속 받아줌
   Future<ChartDataList> futureChartDataList;
   DateLib dateLib = new DateLib();
   List<ChartData> chartDataList = [];

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
+import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
 import 'package:sometrend_charttest/RadarChartView.dart';
 import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
@@ -26,7 +28,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // CounterProvider를 바라본다는 뜻으로 MyHomePage 자식들은 다 CounterProvider에 접근이 가능
+      // 데이터통신으로 계속해서 회원정보를 받아오는 것보다 프로바이더를 이용하여 회원정보를 이동시키는 방법이 더 효율적 -
+      // Consumer 또는 Provider.of<CounterProvider>(context)를 통해서 접근이 가능
+      home: ChangeNotifierProvider<CounterProvider>(
+        create: (context) => CounterProvider(),
+        child:
+        MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -50,9 +59,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   Stream<int> countStream(int to) async* {
-    for(int i = 1; i <= to; i++){
+    for (int i = 1; i <= to; i++) {
       print('counsStream : $i');
       yield i;
     }
@@ -67,40 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // stream.listen((int stream) {
     //   print('stream :: ' + stream.toString());
     // });
-
   }
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
@@ -137,10 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('radar 차트 예제'),
               onPressed: () {
                 // chart 라이브러리 사용해서 예제 진행-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => RadarChartView()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RadarChartView()));
               },
             ),
           ],
