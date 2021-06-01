@@ -9,7 +9,7 @@ class CounterProvider extends ChangeNotifier {
 
   int incrementCount() {
     _count ++;
-    notifyListeners();
+    notifyListeners();  // 메서드 상태가 변경될 때 호출해 provider에 알린다.
   }
 
   int resetCount() {
