@@ -109,6 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('Provider.of<CounterProvider>(context).getCount().toString(); :: ' + Provider.of<CounterProvider>(context, listen: false).getCount().toString());
               },
             ),
+            Container(
+              color: Colors.yellow,
+              child:
+              Image.asset('image/testImage.jpg', width: 150, height: 150, fit: BoxFit.fitHeight)
+            )
           ],
         ),
       ),
