@@ -1,10 +1,14 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
 import 'package:sometrend_charttest/RadarChartView.dart';
 import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
+
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 void main() {
   runApp(MyApp());
@@ -57,7 +61,42 @@ class _MyHomePageState extends State<MyHomePage> {
     // stream.listen((int stream) {
     //   print('stream :: ' + stream.toString());
     // });
+
+    // firebase FCM 예제
+    firebaseCloudMessaging_Listeners();
   }
+
+  void firebaseCloudMessaging_Listeners() {
+    if (Platform.isIOS) iOS_Permission();
+
+    _firebaseMessaging.getToken().then((token){
+      print('token:'+token);
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+  }
+
+  void iOS_Permission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true)
+    );
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings)
+    {
+      print("Settings registered: $settings");
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {

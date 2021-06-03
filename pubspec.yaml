@@ -30,6 +30,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.1.64
   flutter_radar_chart: ^0.2.0
   cupertino_icons: ^1.0.2
+  firebase_messaging: 5.1.5
   multi_charts: ^0.2.0
   provider: ^4.1.2
   date_utils: ^0.2.0
