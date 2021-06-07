@@ -14,6 +14,17 @@
 	<string>sometrend_charttest</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+	<dict>
+	<key>CFBundleTypeRole</key>
+	<string>Editor</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	<string>com.googleusercontent.apps.337299112136-fuc1u6t88sscdh6flm80qnu53g2nj95g</string>
+	</array>
+	</dict>
+	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
