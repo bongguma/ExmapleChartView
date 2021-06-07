@@ -1,4 +1,4 @@
-package com.example.sometrend_charttest
+package com.VAIV.somechart
 
 import io.flutter.embedding.android.FlutterActivity
 

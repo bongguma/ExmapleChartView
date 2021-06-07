@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:sometrend_charttest/Auth/AuthProvider.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
@@ -161,6 +162,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     // 메소드 실행을 위해 Notify를 받지 않는 Provider of를 지정
                     print('Provider.of<CounterProvider>(context).getCount().toString(); :: ' + Provider.of<CounterProvider>(context, listen: false).getCount().toString());
                   },
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Text('google 로그인예제'),
+                  onPressed: () async {
+                    // await AuthProvider().signInWithGoogle();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SyncfusionBubbleChartView()));
+                  },
+                ),
+                SizedBox(
+                  width: 10,
                 ),
               ],
             ),

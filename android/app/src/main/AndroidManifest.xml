@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sometrend_charttest">
+    package="com.VAIV.somechart">
    <application
         android:label="sometrend_charttest"
         android:icon="@mipmap/ic_launcher">
