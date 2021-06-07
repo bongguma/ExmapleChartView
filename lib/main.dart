@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Stream<int> countStream(int to) async* {
     for (int i = 1; i <= to; i++) {
-      print('counsStream : $i');
+      print('countStream : $i');
       yield i;
     }
   }
@@ -69,45 +69,61 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              child: Text('라인차트 예제'),
-              onPressed: () {
-                // chart 라이브러리 사용해서 예제 진행-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => LineChartExampleView()));
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Text('라인차트 예제'),
+                  onPressed: () {
+                    // chart 라이브러리 사용해서 예제 진행-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LineChartExampleView()));
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  child: Text('버블차트 예제'),
+                  onPressed: () {
+                    // chart 라이브러리 사용해서 예제 진행-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BubbleChartExampleView()));
+                  },
+                ),
+              ],
             ),
-            ElevatedButton(
-              child: Text('버블차트 예제'),
-              onPressed: () {
-                // chart 라이브러리 사용해서 예제 진행-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BubbleChartExampleView()));
-              },
-            ),
-            ElevatedButton(
-              child: Text('Syncfusion 차트 예제'),
-              onPressed: () {
-                // chart 라이브러리 사용해서 예제 진행-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SyncfusionBubbleChartView()));
-              },
-            ),
-            ElevatedButton(
-              child: Text('radar 차트 예제'),
-              onPressed: () {
-                // chart 라이브러리 사용해서 예제 진행-
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RadarChartView()));
-                // 메소드 실행을 위해 Notify를 받지 않는 Provider of를 지정
-                print('Provider.of<CounterProvider>(context).getCount().toString(); :: ' + Provider.of<CounterProvider>(context, listen: false).getCount().toString());
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Text('Syncfusion 차트 예제'),
+                  onPressed: () {
+                    // chart 라이브러리 사용해서 예제 진행-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SyncfusionBubbleChartView()));
+                  },
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                ElevatedButton(
+                  child: Text('radar 차트 예제'),
+                  onPressed: () {
+                    // chart 라이브러리 사용해서 예제 진행-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RadarChartView()));
+                    // 메소드 실행을 위해 Notify를 받지 않는 Provider of를 지정
+                    print('Provider.of<CounterProvider>(context).getCount().toString(); :: ' + Provider.of<CounterProvider>(context, listen: false).getCount().toString());
+                  },
+                ),
+              ],
             ),
             Container(
               color: Colors.yellow,
