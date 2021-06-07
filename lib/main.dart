@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sometrend_charttest/Auth/AuthProvider.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
@@ -11,7 +12,9 @@ import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
 
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -171,7 +174,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   child: Text('google 로그인예제'),
                   onPressed: () async {
-                    // await AuthProvider().signInWithGoogle();
+                    await AuthProvider().signInWithGoogle().then((value) =>
+                        print('value :: '));
                     Navigator.push(
                         context,
                         MaterialPageRoute(
