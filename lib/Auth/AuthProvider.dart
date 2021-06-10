@@ -33,7 +33,7 @@ class AuthProvider with ChangeNotifier {
         if (googleAuth.accessToken != null && googleAuth.idToken != null) {
           _logIn(
               "google",
-              GoogleAuthProvider.credential(
+              GoogleAuthProvider.getCredential(
                   idToken: googleAuth.idToken,
                   accessToken: googleAuth.accessToken));
         }

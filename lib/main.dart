@@ -14,7 +14,7 @@ final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();    // main 메소드에서 비동기 메소드 사용할 때 반드시 넣어줘야한다.
-  await Firebase.initializeApp();
+  await
   runApp(MyApp());
 }
 

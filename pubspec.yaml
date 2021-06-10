@@ -32,9 +32,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_messaging: 5.1.5
   multi_charts: ^0.2.0
-  google_sign_in: 5.0.4
-  firebase_core: 1.0.2
-  firebase_auth: 1.0.1
+  google_sign_in: ^4.0.4
+  firebase_auth: ^0.14.0+5
+#  firebase_core: ^0.4.2+2
+#  cloud_firestore: ^0.12.9+5
+
+  firebase_core: ^0.4.0
+#  cloud_firestore: ^0.14.0+2
+
   provider: ^4.1.2
   date_utils: ^0.2.0
   fl_chart: ^0.10.0
