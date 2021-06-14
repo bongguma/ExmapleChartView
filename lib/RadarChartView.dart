@@ -22,7 +22,6 @@ class RadarChartViewState extends State<RadarCharts> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow,
       margin: EdgeInsets.only(left: 5.0, right: 5.0),
       child: Column(children: [
         Container(

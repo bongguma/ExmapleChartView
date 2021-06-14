@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sometrend_charttest/Auth/AuthProvider.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
+import 'package:sometrend_charttest/DartGrammerTestView.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
 import 'package:sometrend_charttest/RadarChartView.dart';
@@ -179,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SyncfusionBubbleChartView()));
+                            builder: (context) => DartGrammerTestView()));
                   },
                 ),
                 SizedBox(
