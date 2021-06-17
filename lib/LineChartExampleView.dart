@@ -35,10 +35,10 @@ class ChartViewState extends State<ChartView> {   // 혼자 화면을 출력할 
   String _startDate = '', _endDate = '';
   int _maxY = 0;
 
-  List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-  ];
+  // List<Color> gradientColors = [
+  //   const Color(0xff23b6e6),
+  //   const Color(0xff02d39a),
+  // ];
 
   bool showAvg = false;
 
@@ -202,8 +202,8 @@ class ChartViewState extends State<ChartView> {   // 혼자 화면을 출력할 
       lineBarsData: [
         LineChartBarData(
           spots: spots.isEmpty ? [FlSpot(0, 0)] : spots,
-          isCurved: true,
-          colors: [Colors.red[50]],
+          isCurved: false,
+          colors: [Colors.white],
           barWidth: 1,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -211,8 +211,7 @@ class ChartViewState extends State<ChartView> {   // 혼자 화면을 출력할 
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors:
-            gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            colors: [Colors.blue[300]],
           ),
         ),
       ],

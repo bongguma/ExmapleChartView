@@ -8,6 +8,7 @@ import 'package:sometrend_charttest/BubbleChartExampleView.dart';
 import 'package:sometrend_charttest/DartGrammerTestView.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
+import 'package:sometrend_charttest/MindmapGraphView.dart';
 import 'package:sometrend_charttest/RadarChartView.dart';
 import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
 
@@ -185,6 +186,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SizedBox(
                   width: 10,
+                ),
+                ElevatedButton(
+                  child: Text('mindmap 그래프 예제'),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MindmapGraphView()));
+                  },
                 ),
               ],
             ),
