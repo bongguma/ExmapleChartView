@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class DartGrammerTestView extends StatelessWidget{
 
@@ -56,26 +57,37 @@ class DartGrammerTestViewState extends State<DartGrammerTest> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      height : 250,
-      child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Swiper(
-          autoplay: false,
-          scale: 0.9,
-          viewportFraction: 0.8,  // 양 옆 이미지 보여지는 method
-          // control: SwiperControl(), // 양 옆 컨트롤 method
-          pagination: SwiperPagination(
-            alignment: Alignment.bottomCenter
+    return Column(
+      children: [
+        Container(
+            color: Colors.red,
+            height : 250,
+            child:  Swiper(
+              autoplay: false,
+              scale: 0.9,
+              // viewportFraction: 0.8,  // 양 옆 이미지 보여지는 method
+              // control: SwiperControl(), // 양 옆 컨트롤 method
+              pagination: SwiperPagination(
+                  alignment: Alignment.bottomCenter
+              ),
+              itemCount: imgList.length,
+              itemBuilder: (BuildContext context, int index){
+                return Image.network(imgList[index]);
+              },
+            )
+        ),
+
+        Container(
+          color: Colors.amber,
+          height : 600,
+          child:
+          WebView(
+            initialUrl: "https://m.naver.com",
+            javascriptMode: JavascriptMode.unrestricted,
           ),
-          itemCount: imgList.length,
-          itemBuilder: (BuildContext context, int index){
-            return Image.network(imgList[index]);
-          },
-        )
-      )
+        ),
+      ],
     );
   }
-  
+
 }

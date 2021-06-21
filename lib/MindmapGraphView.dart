@@ -16,7 +16,7 @@ class MindmapGraph extends StatefulWidget {
 
 class MindmapGraphState extends State<MindmapGraph> {
 
-  List<int> values = [1, 2, 3];
+  List<int> values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   @override
   void initState() {
@@ -61,17 +61,20 @@ class _BorderContainerState extends State<BorderContainer> {
     var futureWithTheLoop = () async {
       while (flag){
         count++;
-        setState(() {
-          outerBorder = Border.all(
-              width: 3.0, color: widget.value == count ? Colors.grey : Colors.grey.withOpacity(0));
+        if(mounted) {
+          setState(() {
+            outerBorder = Border.all(
+                width: 3.0,
+                color: widget.value == count ? Colors.grey : Colors.grey
+                    .withOpacity(0));
 
-          innerBorder = Border.all(
-              width: 1.0,
-              color: widget.value == count
-                  ? Colors.grey.withOpacity(0)
-                  : Colors.grey.withOpacity(0.3));
-
-        });
+            innerBorder = Border.all(
+                width: 1.0,
+                color: widget.value == count
+                    ? Colors.grey.withOpacity(0)
+                    : Colors.grey.withOpacity(0.3));
+          });
+        }
 
         if(count == widget.values.length){
           count = 0;
@@ -84,6 +87,14 @@ class _BorderContainerState extends State<BorderContainer> {
     Future.wait([futureWithTheLoop]);
 
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
