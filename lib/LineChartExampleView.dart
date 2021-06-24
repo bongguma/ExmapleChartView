@@ -60,6 +60,7 @@ class ChartViewState extends State<ChartView> {   // 혼자 화면을 출력할 
     chartDataList = [];
     chartDataFrequencyList = [];
 
+
     futureChartDataList.then((value) {
       value.chartDataList.forEach((chartData) {
         chartDataList.add(chartData);

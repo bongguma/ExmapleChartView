@@ -7,6 +7,7 @@ import 'package:sometrend_charttest/Auth/AuthProvider.dart';
 import 'package:sometrend_charttest/BubbleChartExampleView.dart';
 import 'package:sometrend_charttest/DartGrammerTestView.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
+import 'package:sometrend_charttest/KakaoMapTestView.dart';
 import 'package:sometrend_charttest/LineChartExampleView.dart';
 import 'package:sometrend_charttest/MindmapGraphView.dart';
 import 'package:sometrend_charttest/RadarChartView.dart';
@@ -138,6 +139,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => BubbleChartExampleView()));
+                  },
+                ),
+                ElevatedButton(
+                  child: Text('kakaoMap 예제'),
+                  onPressed: () {
+                    // chart 라이브러리 사용해서 예제 진행-
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => KakaoMapTestView()));
                   },
                 ),
               ],

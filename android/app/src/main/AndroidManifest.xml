@@ -2,6 +2,7 @@
     package="com.VAIV.somechart">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
    <application
         android:label="sometrend_charttest"
@@ -41,5 +42,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <meta-data
+           android:name="com.kakao.sdk.AppKey"
+           android:value="4625ea44d3ef647f3142894e04d0cded" /> <!-- 네이티브 앱 키 설정 -->
     </application>
 </manifest>
