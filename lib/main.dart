@@ -18,9 +18,10 @@ final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 final FirebaseAnalytics analytics = FirebaseAnalytics();
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();    // main 메소드에서 비동기 메소드 사용할 때 반드시 넣어줘야한다.
-  await
-  runApp(MyApp());
+  WidgetsFlutterBinding
+      .ensureInitialized(); // main 메소드에서 비동기 메소드 사용할 때 반드시 넣어줘야한다.
+  print('ddddd');
+  await runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,8 +38,7 @@ class MyApp extends StatelessWidget {
       // Consumer 또는 Provider.of<CounterProvider>(context)를 통해서 접근이 가능
       home: ChangeNotifierProvider<CounterProvider>(
         create: (context) => CounterProvider(),
-        child:
-        MyHomePage(title: 'Flutter Demo Home Page'),
+        child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
       // FirebaseAnalyticsObserver는 GA (google Analytics) 확인을 위해 추가해준 로직으로,
       // Analytics 라이브러리 또한 pubspec 붙여주어야 라이브러리 사용이 가능
@@ -83,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void firebaseCloudMessaging_Listeners() {
     if (Platform.isIOS) iOS_Permission();
 
-    _firebaseMessaging.getToken().then((token){
-      print('token:'+token);
+    _firebaseMessaging.getToken().then((token) {
+      print('token:' + token);
     });
 
     _firebaseMessaging.configure(
@@ -102,15 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void iOS_Permission() {
     _firebaseMessaging.requestNotificationPermissions(
-        IosNotificationSettings(sound: true, badge: true, alert: true)
-    );
+        IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings)
-    {
+        .listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: InkWell(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -148,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => BubbleChartExampleView()));
                   },
                 ),
-                ElevatedButton(
+                FlatButton(
                   child: Text('kakaoMap 예제'),
                   onPressed: () {
                     // chart 라이브러리 사용해서 예제 진행-
@@ -180,10 +177,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text('radar 차트 예제'),
                   onPressed: () {
                     // chart 라이브러리 사용해서 예제 진행-
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => RadarChartView()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RadarChartView()));
                     // 메소드 실행을 위해 Notify를 받지 않는 Provider of를 지정
-                    print('Provider.of<CounterProvider>(context).getCount().toString(); :: ' + Provider.of<CounterProvider>(context, listen: false).getCount().toString());
+                    print(
+                        'Provider.of<CounterProvider>(context).getCount().toString(); :: ' +
+                            Provider.of<CounterProvider>(context, listen: false)
+                                .getCount()
+                                .toString());
                   },
                 ),
               ],
@@ -194,8 +197,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   child: Text('google 로그인예제'),
                   onPressed: () async {
-                    await AuthProvider().signInWithGoogle().then((value) =>
-                        print('value :: '));
+                    await AuthProvider()
+                        .signInWithGoogle()
+                        .then((value) => print('value :: '));
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -217,10 +221,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Container(
-              color: Colors.yellow,
-              child:
-              Image.asset('image/testImage.jpg', width: 150, height: 150, fit: BoxFit.fitHeight)
-            )
+                color: Colors.yellow,
+                child: Image.asset('asset/testImage.jpg',
+                    width: 150, height: 150, fit: BoxFit.fitHeight))
           ],
         ),
       ),

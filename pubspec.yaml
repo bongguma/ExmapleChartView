@@ -35,7 +35,6 @@ dependencies:
   multi_charts: ^0.2.0
   google_sign_in: ^4.0.4
   firebase_auth: ^0.14.0+5
-  firebase_core: ^0.4.0
   flutter_swiper: ^1.1.6
   webview_flutter: ^0.3.24
   flutter_kakao_map: ^0.0.4
@@ -46,10 +45,13 @@ dependencies:
   bubble_chart: any
   intl: ^0.17.0
   http: ^0.13.3
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  pedantic: ^1.9.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -62,7 +64,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - image/
+    - asset/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
