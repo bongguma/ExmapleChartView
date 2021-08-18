@@ -14,25 +14,45 @@
 	<string>sometrend_charttest</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-	<dict>
-	<key>CFBundleTypeRole</key>
-	<string>Editor</string>
-	<key>CFBundleURLSchemes</key>
-	<array>
-	<string>com.googleusercontent.apps.337299112136-fuc1u6t88sscdh6flm80qnu53g2nj95g</string>
-	</array>
-	</dict>
-	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.337299112136-fuc1u6t88sscdh6flm80qnu53g2nj95g</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>kakaoLoginConnect</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao60a43a215471a5fc217d190f574b3391</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<string>0</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>60a43a215471a5fc217d190f574b3391</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+    <string>kakao60a43a215471a5fc217d190f574b3391</string>
+    <string>kakaokompassauth</string>
+    <string>storykompassauth</string>
+    <string>kakaolink</string>
+    <string>kakaotalk-5.9.7</string>
+    </array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -60,6 +80,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
-    <string>YES</string>
+	<string>YES</string>
 </dict>
 </plist>

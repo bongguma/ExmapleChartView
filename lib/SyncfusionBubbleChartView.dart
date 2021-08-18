@@ -57,6 +57,7 @@ class BubbleChartViewState extends State<BubbleChart> {
 }
 
 
+
 class ChartData {
   ChartData(this.x, this.y, this.size);
   final int x;
