@@ -1,20 +1,13 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_analytics/observer.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:sometrend_charttest/Auth/AuthProvider.dart';
-import 'package:sometrend_charttest/BubbleChartExampleView.dart';
-import 'package:sometrend_charttest/DartGrammerTestView.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
-import 'package:sometrend_charttest/KakaoMapTestView.dart';
-import 'package:sometrend_charttest/LineChartExampleView.dart';
-import 'package:sometrend_charttest/MindmapGraphView.dart';
-import 'package:sometrend_charttest/RadarChartView.dart';
-import 'package:sometrend_charttest/SyncfusionBubbleChartView.dart';
-
+import 'package:sometrend_charttest/MenuView.dart';
 
 // 현재 파이어베이스와 카카오 플러터 연동 버전 의존성이 맞지 않아서 파이어베이스 패키지 주석처리 진행해놓은 상태
 // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -65,7 +58,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   Stream<int> countStream(int to) async* {
     for (int i = 1; i <= to; i++) {
       print('countStream : $i');
@@ -89,18 +81,26 @@ class _MyHomePageState extends State<MyHomePage> {
     // firebaseCloudMessaging_Listeners();
   }
 
+  bool isKakaoTalkInstall = true;
+
   initKakaoTalkInstalled() async {
     final installed = await isKakaoTalkInstalled();
 
     setState(() {
       isKakaoTalkInstall = installed;
+
+      if (isKakaoTalkInstall) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MenuView(),
+            ));
+      }
     });
   }
 
-  bool isKakaoTalkInstall = true;
-
   issueAccessToken(String authCode) async {
-    try{
+    try {
       var token = await AuthApi.instance.issueAccessToken(authCode);
       AccessTokenStore.instance.toStore(token);
       print('token :: ' + token.accessToken);
@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   loginWithKakao() async {
-    try{
+    try {
       var code = await AuthCodeClient.instance.request();
       await issueAccessToken(code);
     } catch (e) {
@@ -122,10 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   loginWithTalk() async {
-    try{
+    try {
       var code = await AuthCodeClient.instance.requestWithTalk();
       await issueAccessToken(code);
-    } catch(e) {
+    } catch (e) {
       print('loginWithTalk :: ' + e.toString());
     }
   }
@@ -162,128 +162,34 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: InkWell(
+        body: Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.only(left: 12.0, right: 12.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  child: Text('라인차트 예제'),
-                  onPressed: () {
-                    // chart 라이브러리 사용해서 예제 진행-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LineChartExampleView()));
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  child: Text('버블차트 예제'),
-                  onPressed: () {
-                    // chart 라이브러리 사용해서 예제 진행-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BubbleChartExampleView()));
-                  },
-                ),
-                ElevatedButton(
-                  child: Text('kakao로그인 연동'),
-                  onPressed: () {
-                    // kakaoMap test 시, 진행했던 로직
-                    // chart 라이브러리 사용해서 예제 진행-
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => KakaoMapTestView()));
+          children: [
+            ElevatedButton(
+              child: Text('kakao로그인 연동'),
+              onPressed: () {
+                // kakaoMap test 시, 진행했던 로직
+                // chart 라이브러리 사용해서 예제 진행-
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => KakaoMapTestView()));
 
-                    isKakaoTalkInstall ? loginWithTalk() : loginWithKakao();
-                  },
-                ),
-              ],
+                isKakaoTalkInstall ? loginWithTalk() : loginWithKakao();
+              },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  child: Text('Syncfusion 차트 예제'),
-                  onPressed: () {
-                    // chart 라이브러리 사용해서 예제 진행-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SyncfusionBubbleChartView()));
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  child: Text('radar 차트 예제'),
-                  onPressed: () {
-                    // chart 라이브러리 사용해서 예제 진행-
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RadarChartView()));
-                    // 메소드 실행을 위해 Notify를 받지 않는 Provider of를 지정
-                    print(
-                        'Provider.of<CounterProvider>(context).getCount().toString(); :: ' +
-                            Provider.of<CounterProvider>(context, listen: false)
-                                .getCount()
-                                .toString());
-                  },
-                ),
-              ],
+            ElevatedButton(
+              child: Text('google로그인 연동'),
+              onPressed: () {},
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  child: Text('google 로그인예제'),
-                  onPressed: () async {
-                    // await AuthProvider()
-                    //     .signInWithGoogle()
-                    //     .then((value) => print('value :: '));
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DartGrammerTestView()));
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                  child: Text('mindmap 그래프 예제'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MindmapGraphView()));
-                  },
-                ),
-              ],
-            ),
-            Container(
-                color: Colors.yellow,
-                child: Image.asset('asset/testImage.jpg',
-                    width: 150, height: 150, fit: BoxFit.fitHeight))
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ));
   }
 }
