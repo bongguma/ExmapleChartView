@@ -44,8 +44,29 @@ class MenuState extends State<Menu> {
         height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Row(
+              children: [
+                CircleAvatar(
+                    radius: 25,
+                    backgroundImage: widget.kakaoTalkAccount
+                        .profileImageUrl
+                        .toString()
+                        .isNotEmpty
+                        ? NetworkImage(widget.kakaoTalkAccount
+                        .profileImageUrl)
+                        : AssetImage("assets/images/cat2.png")),
+                SizedBox(width: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${widget.kakaoTalkAccount.nickname}'),
+                    SizedBox(height: 5),
+                    Text('${widget.kakaoTalkAccount.email}'),
+                  ],
+                )
+              ],
+            ),
             ElevatedButton(
               child: Text('라인차트 예제'),
               onPressed: () {
