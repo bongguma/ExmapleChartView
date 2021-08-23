@@ -55,7 +55,7 @@ class MenuState extends State<Menu> {
                         .isNotEmpty
                         ? NetworkImage(widget.kakaoTalkAccount
                         .profileImageUrl)
-                        : AssetImage("assets/images/cat2.png")),
+                        : AssetImage("assets/images/testImage.jpg")),
                 SizedBox(width: 5),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

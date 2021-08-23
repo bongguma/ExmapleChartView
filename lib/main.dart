@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
+
 // import 'package:firebase_analytics/firebase_analytics.dart';
 // import 'package:firebase_analytics/observer.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
@@ -59,54 +60,42 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  Stream<int> countStream(int to) async* {
-    for (int i = 1; i <= to; i++) {
-      print('countStream : $i');
-      yield i;
-    }
-  }
-
   @override
   void initState() {
     // TODO: implement initState
 
     initKakaoTalkInstalled();
-    // Strea 예제
-    // var stream = countStream(10);
-    // stream.listen((int stream) {
-    //   print('stream :: ' + stream.toString());
-    // });
 
     // firebase 관련 주석 진행 상태
     // firebase FCM 예제
     // firebaseCloudMessaging_Listeners();
   }
 
-  bool isKakaoTalkInstall = true;   // 카카오톡이 설치가 되어있는지 확인
+  bool isKakaoTalkInstall = true; // 카카오톡이 설치가 되어있는지 확인
 
   initKakaoTalkInstalled() async {
     final installed = await isKakaoTalkInstalled();
 
     setState(() {
       isKakaoTalkInstall = installed;
-
     });
   }
 
-    issueAccessToken(String authCode) async {
+  issueAccessToken(String authCode) async {
     try {
       var token = await AuthApi.instance.issueAccessToken(authCode);
       AccessTokenStore.instance.toStore(token);
       print('token :: ' + token.accessToken);
 
       // 카카오톡으로 token 값을 받아올 경우,
-      if(token.accessToken.isNotEmpty) {
+      if (token.accessToken.isNotEmpty) {
         kakaoUserData().then((kakaoTalkAccount) {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MenuView(kakaoTalkAccount: kakaoTalkAccount,),
+                builder: (context) => MenuView(
+                  kakaoTalkAccount: kakaoTalkAccount,
+                ),
               ));
         });
       }
@@ -128,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       var code = await AuthCodeClient.instance.requestWithTalk();
       await issueAccessToken(code);
-
     } catch (e) {
       print('loginWithTalk :: ' + e.toString());
     }
@@ -136,7 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // 카카오 로그인 성공 시, userData 가져오기
   Future<KakaoTalkAcounnt> kakaoUserData() async {
-
     var kakaoTalkAccount = new KakaoTalkAcounnt(); // 카카오톡 로그인 시, 로그인 유저 데이터 객체
 
     try {
@@ -151,8 +138,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
       // do anything you want with user instance
     } on KakaoAuthException catch (e) {
-      if (e.error == ApiErrorCause.INVALID_TOKEN) { // access token has expired and cannot be refrsehd. access tokens are already cleared here
-        Navigator.of(context).pushReplacementNamed('/login'); // redirect to login page
+      if (e.error == ApiErrorCause.INVALID_TOKEN) {
+        // access token has expired and cannot be refrsehd. access tokens are already cleared here
+        Navigator.of(context)
+            .pushReplacementNamed('/login'); // redirect to login page
       }
     } catch (e) {
       // other api or client-side errors
@@ -160,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return kakaoTalkAccount;
   }
+
   // void firebaseCloudMessaging_Listeners() {
   //   if (Platform.isIOS) iOS_Permission();
   //
@@ -200,9 +190,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              child: Text('kakao로그인 연동'),
-              onPressed: () {
+            InkWell(
+              child: Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.yellow,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 20,
+                        height: 20,
+                        child: Image.asset('asset/kakaoLogo.png'),
+                      ),
+                      SizedBox(width: 5),
+                      Text('Kakao 로그인 연동')
+                    ],
+                  ),
+                ),
+              ),
+              onTap: () {
                 // kakaoMap test 시, 진행했던 로직
                 // chart 라이브러리 사용해서 예제 진행-
                 // Navigator.push(
