@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 // import 'package:firebase_analytics/observer.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
+import 'package:sometrend_charttest/Data/KakaoTalkAccount.dart';
 import 'package:sometrend_charttest/MenuView.dart';
 
 // 현재 파이어베이스와 카카오 플러터 연동 버전 의존성이 맞지 않아서 파이어베이스 패키지 주석처리 진행해놓은 상태
@@ -58,6 +59,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   Stream<int> countStream(int to) async* {
     for (int i = 1; i <= to; i++) {
       print('countStream : $i');
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // firebaseCloudMessaging_Listeners();
   }
 
-  bool isKakaoTalkInstall = true;
+  bool isKakaoTalkInstall = true;   // 카카오톡이 설치가 되어있는지 확인
 
   initKakaoTalkInstalled() async {
     final installed = await isKakaoTalkInstalled();
@@ -89,24 +91,25 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       isKakaoTalkInstall = installed;
 
-      if (isKakaoTalkInstall) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MenuView(),
-            ));
-      }
     });
   }
 
-  issueAccessToken(String authCode) async {
+    issueAccessToken(String authCode) async {
     try {
       var token = await AuthApi.instance.issueAccessToken(authCode);
       AccessTokenStore.instance.toStore(token);
       print('token :: ' + token.accessToken);
 
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => Home(),
-      // ));
+      // 카카오톡으로 token 값을 받아올 경우,
+      if(token.accessToken.isNotEmpty) {
+        kakaoUserData().then((kakaoTalkAccount) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MenuView(kakaoTalkAccount: kakaoTalkAccount,),
+              ));
+        });
+      }
     } catch (e) {
       print('issueAccessToken :: ' + e.toString());
     }
@@ -125,11 +128,38 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       var code = await AuthCodeClient.instance.requestWithTalk();
       await issueAccessToken(code);
+
     } catch (e) {
       print('loginWithTalk :: ' + e.toString());
     }
   }
 
+  // 카카오 로그인 성공 시, userData 가져오기
+  Future<KakaoTalkAcounnt> kakaoUserData() async {
+
+    var kakaoTalkAccount = new KakaoTalkAcounnt(); // 카카오톡 로그인 시, 로그인 유저 데이터 객체
+
+    try {
+      User user = await UserApi.instance.me();
+      Account account = user.kakaoAccount;
+      Profile profile = account.profile;
+
+      kakaoTalkAccount.email = account.email;
+      kakaoTalkAccount.nickname = profile.nickname;
+      kakaoTalkAccount.thumbnailImageUrl = profile.thumbnailImageUrl;
+      kakaoTalkAccount.profileImageUrl = profile.profileImageUrl;
+
+      // do anything you want with user instance
+    } on KakaoAuthException catch (e) {
+      if (e.error == ApiErrorCause.INVALID_TOKEN) { // access token has expired and cannot be refrsehd. access tokens are already cleared here
+        Navigator.of(context).pushReplacementNamed('/login'); // redirect to login page
+      }
+    } catch (e) {
+      // other api or client-side errors
+    }
+
+    return kakaoTalkAccount;
+  }
   // void firebaseCloudMessaging_Listeners() {
   //   if (Platform.isIOS) iOS_Permission();
   //
