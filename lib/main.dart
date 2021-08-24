@@ -1,15 +1,13 @@
-import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
-
-// import 'package:firebase_analytics/firebase_analytics.dart';
-// import 'package:firebase_analytics/observer.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:sometrend_charttest/Auth/AuthProvider.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/Data/KakaoTalkAccount.dart';
 import 'package:sometrend_charttest/MenuView.dart';
+import 'package:sometrend_charttest/theme/ThemeFactory.dart';
 
 // 현재 파이어베이스와 카카오 플러터 연동 버전 의존성이 맞지 않아서 파이어베이스 패키지 주석처리 진행해놓은 상태
 // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -18,6 +16,7 @@ import 'package:sometrend_charttest/MenuView.dart';
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // main 메소드에서 비동기 메소드 사용할 때 반드시 넣어줘야한다.
+  await Firebase.initializeApp();
 
   KakaoContext.clientId = "60a43a215471a5fc217d190f574b3391";
   KakaoContext.javascriptClientId = "bd8926bcafd8c32bf4aac0b856255c99";
@@ -104,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // 카카오톡이 깔려있지 않을 경우, 아이디 비밀번호 입력
   loginWithKakao() async {
     try {
       var code = await AuthCodeClient.instance.request();
@@ -113,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // 카카오톡이 깔려 있을 경우, 간편 로그인 시작
   loginWithTalk() async {
     try {
       var code = await AuthCodeClient.instance.requestWithTalk();
@@ -179,8 +180,99 @@ class _MyHomePageState extends State<MyHomePage> {
   //   });
   // }
 
+  Widget kakaoLoginBtn(theme) {
+    return InkWell(
+      child: Container(
+        width: 200,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: theme.primaryYellowColor,
+            boxShadow: [
+              BoxShadow(
+                color: theme.primaryGreyBgColor.withOpacity(0.3),
+                blurRadius: 10,
+                offset: Offset(0, 0),
+              ),
+            ]),
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 20,
+                height: 20,
+                child: Image.asset('asset/kakaoLogo.png'),
+              ),
+              SizedBox(width: 5),
+              Text('Kakao로 간편한 시작',
+                  style: TextStyle(
+                      color: theme.primaryBlackTextColor, fontWeight: FontWeight.bold))
+            ],
+          ),
+        ),
+      ),
+      onTap: () {
+        // kakaoMap test 시, 진행했던 로직
+        // chart 라이브러리 사용해서 예제 진행-
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => KakaoMapTestView()));
+
+        isKakaoTalkInstall ? loginWithTalk() : loginWithKakao();
+      },
+    );
+  }
+
+  Widget googleLoginBtn(theme) {
+    return InkWell(
+      child: Container(
+        width: 200,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: theme.secondaryBgColor,
+            boxShadow: [
+              BoxShadow(
+                color: theme.primaryGreyBgColor.withOpacity(0.3),
+                blurRadius: 10,
+                offset: Offset(0, 0),
+              ),
+            ]),
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 20,
+                height: 20,
+                child: Image.asset('asset/googleLogo.png'),
+              ),
+              SizedBox(width: 5),
+              Text('Google로 간편한 시작',
+                  style: TextStyle(
+                      color: theme.primaryBlackTextColor, fontWeight: FontWeight.bold))
+            ],
+          ),
+        ),
+      ),
+      onTap: () async {
+        await AuthProvider().signInWithGoogle().then((value) =>
+            print('value :: '));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MenuView()));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    var theme = new ThemeFactory.of(context).theme;
+
     return Scaffold(
         body: Container(
       height: double.infinity,
@@ -190,42 +282,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.yellow,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        child: Image.asset('asset/kakaoLogo.png'),
-                      ),
-                      SizedBox(width: 5),
-                      Text('Kakao 로그인 연동')
-                    ],
-                  ),
-                ),
-              ),
-              onTap: () {
-                // kakaoMap test 시, 진행했던 로직
-                // chart 라이브러리 사용해서 예제 진행-
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => KakaoMapTestView()));
-
-                isKakaoTalkInstall ? loginWithTalk() : loginWithKakao();
-              },
-            ),
-            ElevatedButton(
-              child: Text('google로그인 연동'),
-              onPressed: () {},
-            ),
+            kakaoLoginBtn(theme),
+            SizedBox(height: 15.0),
+            googleLoginBtn(theme),
           ],
         ),
       ),
