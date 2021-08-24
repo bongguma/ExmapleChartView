@@ -108,7 +108,9 @@ class ChartViewState extends State<ChartView> {
                               onTap: () {
                                 showDialog(
                                   barrierColor: Colors.white10,
-                                  context: context,
+                                  context: context, builder: (BuildContext context) {
+
+                                },
                                 );
                                 // AlertDialog(title: Text("Sample Alert Dialog"));
                               },
