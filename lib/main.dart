@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:sometrend_charttest/Auth/AuthProvider.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/Data/KakaoTalkAccount.dart';
-import 'package:sometrend_charttest/MenuView.dart';
+import 'package:sometrend_charttest/Data/Type/LoginType.dart';
+import 'package:sometrend_charttest/LayoutView/MenuView.dart';
 import 'package:sometrend_charttest/theme/ThemeFactory.dart';
 
 // 현재 파이어베이스와 카카오 플러터 연동 버전 의존성이 맞지 않아서 파이어베이스 패키지 주석처리 진행해놓은 상태
@@ -20,6 +21,7 @@ void main() async {
 
   KakaoContext.clientId = "60a43a215471a5fc217d190f574b3391";
   KakaoContext.javascriptClientId = "bd8926bcafd8c32bf4aac0b856255c99";
+
   await runApp(MyApp());
 }
 
@@ -93,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
               context,
               MaterialPageRoute(
                 builder: (context) => MenuView(
+                  loginType: LoginType.KAKAO,
                   kakaoTalkAccount: kakaoTalkAccount,
                 ),
               ));
@@ -258,12 +261,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       onTap: () async {
-        await AuthProvider().signInWithGoogle().then((value) =>
-            print('value :: '));
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MenuView()));
+        await AuthProvider().signInWithGoogle().then((value) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MenuView(
+                      loginType: LoginType.GOOGLE)
+              ));
+        });
       },
     );
   }

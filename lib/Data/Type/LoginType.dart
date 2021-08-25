@@ -1,0 +1,5 @@
+enum LoginType {
+  GOOGLE,
+
+  KAKAO,
+}
