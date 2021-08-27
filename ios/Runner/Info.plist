@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>테스트 앱</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,19 +25,19 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.337299112136-fuc1u6t88sscdh6flm80qnu53g2nj95g</string>
+				<string>kakao60a43a215471a5fc217d190f574b3391</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>kakaoLoginConnect</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao60a43a215471a5fc217d190f574b3391</string>
+				<string>com.googleusercontent.apps.337299112136-fuc1u6t88sscdh6flm80qnu53g2nj95g</string>
 			</array>
 		</dict>
 	</array>
@@ -45,14 +47,14 @@
 	<string>0</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>60a43a215471a5fc217d190f574b3391</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-    <string>kakao60a43a215471a5fc217d190f574b3391</string>
-    <string>kakaokompassauth</string>
-    <string>storykompassauth</string>
-    <string>kakaolink</string>
-    <string>kakaotalk-5.9.7</string>
-    </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakao60a43a215471a5fc217d190f574b3391</string>
+		<string>kakaokompassauth</string>
+		<string>storykompassauth</string>
+		<string>kakaolink</string>
+		<string>kakaotalk-5.9.7</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
