@@ -24,6 +24,7 @@ class MenuView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: DefaultAppbar(false),
       body: Menu(loginType: loginType, kakaoTalkAccount: kakaoTalkAccount,),
     );
   }

@@ -24,7 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   syncfusion_flutter_charts: ^18.4.49
@@ -47,6 +46,7 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.3
   carousel_slider: ^3.0.0
+  get: ^4.1.0
 
   #카카오 로그인 연동을 위해 필요한 패키지
   kakao_flutter_sdk: ^0.7.0

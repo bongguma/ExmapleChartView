@@ -2,9 +2,14 @@
 import 'package:flutter/material.dart';
 
 class DefaultAppbar extends StatefulWidget implements PreferredSizeWidget {
-  Size get preferredSize => Size.fromHeight(100);
 
+  DefaultAppbar(bool isBackBtn, {Key key}) : isBackBtn = isBackBtn, preferredSize = Size.fromHeight(100), super(key: key);
 
+  @override
+  final bool isBackBtn;
+
+  @override
+  final Size preferredSize;
 
   @override
   State<DefaultAppbar> createState() => _defaultAppbarState();
@@ -36,20 +41,21 @@ class _defaultAppbarState extends State<DefaultAppbar> {
     return DefaultTabController(
       length: 5,
       child: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.red,
         elevation: 0.0,
         automaticallyImplyLeading: false,
-        leading: backIconBtn(),
-        title: GestureDetector(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 150,
-                child: Text('appBar'),
+        leading: widget.isBackBtn ? backIconBtn() : Container(),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(
+              width: 30,
+              child: Icon(
+                Icons.lock,
+                color: Colors.black,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
