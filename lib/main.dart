@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
-import 'package:sometrend_charttest/Auth/AuthProvider.dart';
+import 'package:sometrend_charttest/Auth/GoogleLoginAuthProvider.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/Data/KakaoTalkAccount.dart';
 import 'package:sometrend_charttest/Data/Type/LoginType.dart';
