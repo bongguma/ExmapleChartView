@@ -72,6 +72,11 @@ abstract class _ITheme {
   Color secondaryGreyBgColor;
 
   /*
+  * 세컨 검정 배경
+  * */
+  Color primaryBlackBgColor;
+
+  /*
   * 노란색
   * */
   Color primaryYellowColor;
@@ -240,6 +245,9 @@ class _BaseTheme implements _ITheme {
 
   @override
   Color primaryGreyBgColor = Color(0xFFC5C5CF);
+
+  @override
+  Color primaryBlackBgColor = Color(0xFF434343);
 
   @override
   Color secondaryGreyBgColor = Color(0xFFEEEFF3);
