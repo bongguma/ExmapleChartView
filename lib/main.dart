@@ -58,6 +58,14 @@ class _MyHomePageState extends State<MyApp> {
         //   Get.put(CounterController());
         // }),
       ),
+      GetPage(
+        name: '/menu',
+        page: () => MenuView(),
+        transition: Transition.noTransition,
+        // binding: BindingsBuilder(() {
+        //   Get.put(CounterController());
+        // }),
+      ),
     ];
   }
 

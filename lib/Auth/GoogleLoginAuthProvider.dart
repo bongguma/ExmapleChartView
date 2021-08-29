@@ -1,6 +1,3 @@
-
-// 구글 로그인 관련 파이어베이스 Auth 또한 주석처리 진행해놓은 상태
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';

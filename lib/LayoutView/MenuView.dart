@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
 import 'package:sometrend_charttest/LayoutView/BubbleChartExampleView.dart';
@@ -16,26 +17,23 @@ import '../Data/KakaoTalkAccount.dart';
 
 class MenuView extends StatelessWidget {
 
-  final LoginType loginType;
-  final KakaoTalkAcounnt kakaoTalkAccount;
-
-  MenuView({Key key, @required this.loginType, @required this.kakaoTalkAccount}) : super(key : key);
+  MenuView({Key key}) : super(key : key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppbar(false),
-      body: Menu(loginType: loginType, kakaoTalkAccount: kakaoTalkAccount,),
+      body: Menu(),
     );
   }
 }
 
 class Menu extends StatefulWidget {
 
-  final LoginType loginType;
-  final KakaoTalkAcounnt kakaoTalkAccount;
+  final LoginType loginType = Get.arguments['loginType'];
+  final KakaoTalkAcounnt kakaoTalkAccount = Get.arguments['kakaoTalkAccount'];
 
-  Menu({Key key, @required this.loginType, @required this.kakaoTalkAccount}) : super(key : key);
+  Menu({Key key}) : super(key : key);
 
   @override
   MenuState createState() => MenuState();
