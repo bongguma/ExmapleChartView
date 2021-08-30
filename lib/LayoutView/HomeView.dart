@@ -1,17 +1,15 @@
+import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:provider/provider.dart';
 import 'package:sometrend_charttest/Auth/GoogleLoginAuthProvider.dart';
 import 'package:sometrend_charttest/Auth/KakaoLoginAuthProvider.dart';
 import 'package:sometrend_charttest/Data/CounterProvider.dart';
 import 'package:sometrend_charttest/Data/Type/LoginType.dart';
-import 'package:sometrend_charttest/LayoutView/MenuView.dart';
 import 'package:sometrend_charttest/theme/ThemeFactory.dart';
 
 class HomeView extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -124,7 +122,8 @@ class HomeState extends State<Home> {
               SizedBox(width: 5),
               Text('Kakao로 간편한 시작',
                   style: TextStyle(
-                      color: theme.primaryBlackTextColor, fontWeight: FontWeight.bold))
+                      color: theme.primaryBlackTextColor,
+                      fontWeight: FontWeight.bold))
             ],
           ),
         ),
@@ -137,8 +136,9 @@ class HomeState extends State<Home> {
         //     MaterialPageRoute(
         //         builder: (context) => KakaoMapTestView()));
 
-        isKakaoTalkInstall ?
-            KakaoLoginAuthProvider().loginWithTalk(context) : KakaoLoginAuthProvider().loginWithKakao(context);
+        isKakaoTalkInstall
+            ? KakaoLoginAuthProvider().loginWithTalk(context)
+            : KakaoLoginAuthProvider().loginWithKakao(context);
       },
     );
   }
@@ -170,7 +170,8 @@ class HomeState extends State<Home> {
               SizedBox(width: 5),
               Text('Google로 간편한 시작',
                   style: TextStyle(
-                      color: theme.primaryBlackTextColor, fontWeight: FontWeight.bold))
+                      color: theme.primaryBlackTextColor,
+                      fontWeight: FontWeight.bold))
             ],
           ),
         ),
@@ -184,7 +185,7 @@ class HomeState extends State<Home> {
           //             loginType: LoginType.GOOGLE)
           //     ));
 
-          Get.toNamed('/menu', arguments: {"loginType" : LoginType.KAKAO});
+          Get.toNamed('/menu', arguments: {"loginType": LoginType.GOOGLE});
         });
       },
     );
@@ -192,24 +193,23 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     var theme = new ThemeFactory.of(context).theme;
 
     return Scaffold(
         body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: Padding(
-            padding: EdgeInsets.only(left: 12.0, right: 12.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                kakaoLoginBtn(theme),
-                SizedBox(height: 15.0),
-                googleLoginBtn(theme),
-              ],
-            ),
-          ),
-        ));
+      height: double.infinity,
+      width: double.infinity,
+      child: Padding(
+        padding: EdgeInsets.only(left: 12.0, right: 12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            kakaoLoginBtn(theme),
+            SizedBox(height: 15.0),
+            googleLoginBtn(theme),
+          ],
+        ),
+      ),
+    ));
   }
 }
