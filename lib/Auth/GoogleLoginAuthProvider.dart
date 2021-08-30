@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sometrend_charttest/Data/AccountData.dart';
 
 class GoogleLoginAuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  var googleAccount = new AccountData();
 
   Future<void> logIn(String method, dynamic token) async {
     try {
@@ -23,14 +25,19 @@ class GoogleLoginAuthProvider with ChangeNotifier {
   }
 
   /* 구글 로그인 연동 함수 */
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle(context) async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount _googleSignInAccount =
+      final GoogleSignInAccount googleSignInAccount =
           await _googleSignIn.signIn();
-      if (_googleSignInAccount != null) {
+      if (googleSignInAccount != null) {
+        // 사용자 데이터 받아오는 부분
+        googleUserData(context, googleSignInAccount).then((accountData) {
+          googleAccount = accountData;
+        });
+
         final GoogleSignInAuthentication googleAuth =
-            await _googleSignInAccount.authentication;
+            await googleSignInAccount.authentication;
         if (googleAuth.accessToken != null && googleAuth.idToken != null) {
           logIn(
               "google",
@@ -42,6 +49,23 @@ class GoogleLoginAuthProvider with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  // 구글 로그인 성공 시, userData 가져오기
+  Future<AccountData> googleUserData(context, googleSignInAccount) async {
+    var googleAccount = new AccountData(); // 카카오톡 로그인 시, 로그인 유저 데이터 객체
+
+    try {
+      googleAccount.email = googleSignInAccount.email;
+      googleAccount.nickname = googleSignInAccount.displayName;
+      googleAccount.profileImageUrl = googleSignInAccount.photoUrl;
+
+      // do anything you want with user instance
+    } catch (e) {
+      // other api or client-side errors
+    }
+
+    return googleAccount;
   }
 
   Future<bool> logOut() async {

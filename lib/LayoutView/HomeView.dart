@@ -177,7 +177,7 @@ class HomeState extends State<Home> {
         ),
       ),
       onTap: () async {
-        await GoogleLoginAuthProvider().signInWithGoogle().then((value) {
+        await GoogleLoginAuthProvider().signInWithGoogle(context).then((value) {
           // Navigator.push(
           //     context,
           //     MaterialPageRoute(
@@ -185,7 +185,10 @@ class HomeState extends State<Home> {
           //             loginType: LoginType.GOOGLE)
           //     ));
 
-          Get.toNamed('/menu', arguments: {"loginType": LoginType.GOOGLE});
+          Get.toNamed('/menu', arguments: {
+            "loginType": LoginType.GOOGLE,
+            "accountData": GoogleLoginAuthProvider().googleAccount
+          });
         });
       },
     );

@@ -11,30 +11,35 @@ import 'package:sometrend_charttest/LayoutView/SyncfusionBubbleChartView.dart';
 import 'package:sometrend_charttest/LayoutView/defaultLayoutView/DefalutAppBar.dart';
 import 'package:sometrend_charttest/theme/ThemeFactory.dart';
 
-import '../Data/KakaoTalkAccount.dart';
+import '../Data/AccountData.dart';
 
 class MenuView extends StatelessWidget {
-
-
   final LoginType loginType = Get.arguments['loginType'];
-  final KakaoTalkAcounnt kakaoTalkAccount = Get.arguments['kakaoTalkAccount'];
+  final AccountData accountData = Get.arguments['accountData'];
 
-  MenuView({Key key}) : super(key : key);
+  MenuView({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DefaultAppbar(isBackBtn: false, loginType: loginType,),
-      body: Menu(loginType: loginType, kakaoTalkAccount: kakaoTalkAccount,),
+      appBar: DefaultAppbar(
+        isBackBtn: false,
+        loginType: loginType,
+      ),
+      body: Menu(
+        loginType: loginType,
+        accountData: accountData,
+      ),
     );
   }
 }
 
 class Menu extends StatefulWidget {
   final LoginType loginType;
-  final KakaoTalkAcounnt kakaoTalkAccount;
+  final AccountData accountData;
 
-  Menu({Key key, @required this.loginType, @required this.kakaoTalkAccount}) : super(key : key);
+  Menu({Key key, @required this.loginType, @required this.accountData})
+      : super(key: key);
 
   @override
   MenuState createState() => MenuState();
@@ -46,13 +51,10 @@ Widget KakaoProfileView(widget) {
     children: [
       CircleAvatar(
           radius: 25,
-          backgroundImage: widget.kakaoTalkAccount
-              .profileImageUrl
-              .toString()
-              .isNotEmpty
-              ? NetworkImage(widget.kakaoTalkAccount
-              .profileImageUrl)
-              : AssetImage("assets/images/testImage.jpg")),
+          backgroundImage:
+              widget.kakaoTalkAccount.profileImageUrl.toString().isNotEmpty
+                  ? NetworkImage(widget.kakaoTalkAccount.profileImageUrl)
+                  : AssetImage("assets/images/testImage.jpg")),
       SizedBox(width: 10),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,14 +76,17 @@ class MenuState extends State<Menu> {
     return Scaffold(
       backgroundColor: theme.secondaryBgColor,
       body: Padding(
-        padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 10.0, bottom: 10.0),
+        padding:
+            EdgeInsets.only(left: 8.0, right: 8.0, top: 10.0, bottom: 10.0),
         child: Container(
           width: double.infinity,
           height: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              widget.loginType == LoginType.KAKAO ? KakaoProfileView(widget) : Container(),
+              !widget.accountData.isBlank
+                  ? KakaoProfileView(widget)
+                  : Container(),
               Flexible(
                 flex: 1,
                 child: Column(
@@ -89,7 +94,6 @@ class MenuState extends State<Menu> {
                     ElevatedButton(
                       child: Text('라인차트 예제'),
                       onPressed: () {
-                        print('loginType :: ' + widget.loginType.toString());
                         // chart 라이브러리 사용해서 예제 진행-
                         Navigator.push(
                             context,
@@ -107,7 +111,8 @@ class MenuState extends State<Menu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BubbleChartExampleView()));
+                                builder: (context) =>
+                                    BubbleChartExampleView()));
                       },
                     ),
                     ElevatedButton(
@@ -117,7 +122,8 @@ class MenuState extends State<Menu> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SyncfusionBubbleChartView()));
+                                builder: (context) =>
+                                    SyncfusionBubbleChartView()));
                       },
                     ),
                     SizedBox(
@@ -162,6 +168,6 @@ class MenuState extends State<Menu> {
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      );
+    );
   }
 }
