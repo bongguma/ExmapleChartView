@@ -3,14 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/all.dart';
-import 'package:provider/provider.dart';
-import 'package:sometrend_charttest/Auth/GoogleLoginAuthProvider.dart';
-import 'package:sometrend_charttest/Data/CounterProvider.dart';
-import 'package:sometrend_charttest/Data/AccountData.dart';
-import 'package:sometrend_charttest/Data/Type/LoginType.dart';
 import 'package:sometrend_charttest/LayoutView/HomeView.dart';
 import 'package:sometrend_charttest/LayoutView/MenuView.dart';
-import 'package:sometrend_charttest/theme/ThemeFactory.dart';
 
 // 현재 파이어베이스와 카카오 플러터 연동 버전 의존성이 맞지 않아서 파이어베이스 패키지 주석처리 진행해놓은 상태
 // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
